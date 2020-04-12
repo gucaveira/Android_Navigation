@@ -16,4 +16,10 @@
         android:name="com.android_navigation.ui.fragment.DetalhesProdutoFragment"
         android:label="Detalhes do produto"
         tools:layout="@layout/detalhes_produto" />
+
+    <fragment
+        android:id="@+id/pagamento"
+        android:name="com.android_navigation.ui.fragment.PagamentoFragment"
+        android:label="Pagamento"
+        tools:layout="@layout/pagamento" />
 </navigation>

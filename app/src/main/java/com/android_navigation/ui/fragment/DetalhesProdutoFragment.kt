@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.android_navigation.R
-import com.android_navigation.model.Produto
 import com.android_navigation.ui.activity.CHAVE_PRODUTO_ID
 import com.android_navigation.ui.extensions.formatParaMoedaBrasileira
 import com.android_navigation.viewmodel.DetalhesProdutoViewModel
@@ -22,7 +22,7 @@ class DetalhesProdutoFragment : Fragment() {
             ?: throw IllegalArgumentException(ID_PRODUTO_INVALIDO)
     }
     private val viewModel: DetalhesProdutoViewModel by viewModel { parametersOf(produtoId) }
-    var quandoProdutoComprado: (produto: Produto) -> Unit = {}
+    private val controller by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,10 @@ class DetalhesProdutoFragment : Fragment() {
 
     private fun configuraBotaoComprar() {
         detalhes_produto_botao_comprar.setOnClickListener {
-            viewModel.produtoEncontrado.value?.let(quandoProdutoComprado)
+            viewModel.produtoEncontrado.value?.let {
+                val bundle = Bundle()
+                controller.navigate(R.id.pagamento, bundle)
+            }
         }
     }
 
