@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.android_navigation.R
 import com.android_navigation.model.Pagamento
 import com.android_navigation.model.Produto
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.pagamento.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val FALHA_AO_CRIAR_PAGAMENTO = "Falha ao criar pagamento"
+private const val COMPRA_REALIZADA = "Compra realizada"
 
 
 class PagamentoFragment : Fragment() {
@@ -26,8 +28,7 @@ class PagamentoFragment : Fragment() {
     }
     private val viewModel: PagamentoViewModel by viewModel()
     private lateinit var produtoEscolhido: Produto
-    var quandoPagamentoRealizado: (idPagamento: Long) -> Unit = {}
-
+    private val controller by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,9 +66,16 @@ class PagamentoFragment : Fragment() {
     private fun salva(pagamento: Pagamento) {
         if (::produtoEscolhido.isInitialized) {
             viewModel.salva(pagamento).observe(this, Observer {
-                it?.dado?.let(quandoPagamentoRealizado)
+                it?.dado?.let {
+                    Toast.makeText(context, COMPRA_REALIZADA, Toast.LENGTH_LONG).show()
+                    vaiParaListaProdutos()
+                }
             })
         }
+    }
+
+    private fun vaiParaListaProdutos() {
+        controller.popBackStack(R.id.listaProdutos, false)
     }
 
     private fun criarPagamento(): Pagamento? {
