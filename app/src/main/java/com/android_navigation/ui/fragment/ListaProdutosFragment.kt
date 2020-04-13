@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.android_navigation.R
-import com.android_navigation.ui.activity.CHAVE_PRODUTO_ID
 import com.android_navigation.ui.recyclerview.adapter.ProdutosAdapter
 import com.android_navigation.viewmodel.ProdutosViewModel
 import kotlinx.android.synthetic.main.lista_produtos.*
@@ -56,9 +55,11 @@ class ListaProdutosFragment : Fragment() {
         val divisor = DividerItemDecoration(context, VERTICAL)
         lista_produtos_recyclerview.addItemDecoration(divisor)
         adapter.onItemClickListener = { produtoSelecionado ->
-            val bundle = Bundle()
-            bundle.putLong(CHAVE_PRODUTO_ID, produtoSelecionado.id)
-            controller.navigate(R.id.action_listaProdutos_to_detalhesProduto, bundle)
+            val directions =
+                ListaProdutosFragmentDirections.actionListaProdutosToDetalhesProduto(
+                    produtoSelecionado.id
+                )
+            controller.navigate(directions)
 
         }
         lista_produtos_recyclerview.adapter = adapter

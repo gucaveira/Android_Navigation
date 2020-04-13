@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_detalhesProduto_to_pagamento"
             app:destination="@id/pagamento" />
+        <argument
+            android:name="produtoId"
+            app:argType="long" />
     </fragment>
 
     <fragment
