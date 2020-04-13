@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.android_navigation.R
 import com.android_navigation.model.Pagamento
 import com.android_navigation.model.Produto
-import com.android_navigation.ui.activity.CHAVE_PRODUTO_ID
 import com.android_navigation.ui.extensions.formatParaMoedaBrasileira
 import com.android_navigation.viewmodel.PagamentoViewModel
 import kotlinx.android.synthetic.main.pagamento.*
@@ -23,8 +23,9 @@ private const val COMPRA_REALIZADA = "Compra realizada"
 
 class PagamentoFragment : Fragment() {
 
+    private val argumentos by navArgs<PagamentoFragmentArgs>()
     private val produtoId by lazy {
-        arguments?.getLong(CHAVE_PRODUTO_ID) ?: throw IllegalArgumentException(ID_PRODUTO_INVALIDO)
+        argumentos.produtoId
     }
     private val viewModel: PagamentoViewModel by viewModel()
     private lateinit var produtoEscolhido: Produto
@@ -75,7 +76,9 @@ class PagamentoFragment : Fragment() {
     }
 
     private fun vaiParaListaProdutos() {
-        controller.navigate(R.id.action_pagamento_to_listaProdutos)
+        val directions =
+            PagamentoFragmentDirections.actionPagamentoToListaProdutos()
+        controller.navigate(directions)
     }
 
     private fun criarPagamento(): Pagamento? {
