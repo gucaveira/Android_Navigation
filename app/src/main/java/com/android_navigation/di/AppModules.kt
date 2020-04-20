@@ -1,5 +1,7 @@
 package com.android_navigation.di
 
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -7,6 +9,7 @@ import com.android_navigation.database.AppDatabase
 import com.android_navigation.database.dao.PagamentoDAO
 import com.android_navigation.database.dao.ProdutoDAO
 import com.android_navigation.model.Produto
+import com.android_navigation.repository.LoginRepository
 import com.android_navigation.repository.PagamentoRepository
 import com.android_navigation.repository.ProdutoRepository
 import com.android_navigation.ui.fragment.DetalhesProdutoFragment
@@ -14,6 +17,7 @@ import com.android_navigation.ui.fragment.ListaProdutosFragment
 import com.android_navigation.ui.fragment.PagamentoFragment
 import com.android_navigation.ui.recyclerview.adapter.ProdutosAdapter
 import com.android_navigation.viewmodel.DetalhesProdutoViewModel
+import com.android_navigation.viewmodel.LoginViewModel
 import com.android_navigation.viewmodel.PagamentoViewModel
 import com.android_navigation.viewmodel.ProdutosViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -75,6 +79,8 @@ val daoModule = module {
     single<PagamentoDAO> { get<AppDatabase>().pagamentoDao() }
     single<ProdutoRepository> { ProdutoRepository(get()) }
     single<PagamentoRepository> { PagamentoRepository(get()) }
+    single<LoginRepository> { LoginRepository(get()) }
+    single<SharedPreferences> { PreferenceManager.getDefaultSharedPreferences(get()) }
 }
 
 val uiModule = module {
@@ -88,4 +94,5 @@ val viewModelModule = module {
     viewModel<ProdutosViewModel> { ProdutosViewModel(get()) }
     viewModel<DetalhesProdutoViewModel> { (id: Long) -> DetalhesProdutoViewModel(id, get()) }
     viewModel<PagamentoViewModel> { PagamentoViewModel(get(), get()) }
+    viewModel<LoginViewModel> { LoginViewModel(get()) }
 }
