@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listaProdutos">
+    app:startDestination="@id/Login">
 
     <fragment
         android:id="@+id/listaProdutos"
         android:name="com.android_navigation.ui.fragment.ListaProdutosFragment"
         android:label="Lista de Produtos"
-        tools:layout="@layout/lista_produtos" >
+        tools:layout="@layout/lista_produtos">
         <action
             android:id="@+id/action_listaProdutos_to_detalhesProduto"
             app:destination="@id/detalhesProduto"
@@ -23,7 +23,7 @@
         android:id="@+id/detalhesProduto"
         android:name="com.android_navigation.ui.fragment.DetalhesProdutoFragment"
         android:label="Detalhes do produto"
-        tools:layout="@layout/detalhes_produto" >
+        tools:layout="@layout/detalhes_produto">
         <action
             android:id="@+id/action_detalhesProduto_to_pagamento"
             app:destination="@id/pagamento"
@@ -40,7 +40,7 @@
         android:id="@+id/pagamento"
         android:name="com.android_navigation.ui.fragment.PagamentoFragment"
         android:label="Pagamento"
-        tools:layout="@layout/pagamento" >
+        tools:layout="@layout/pagamento">
         <action
             android:id="@+id/action_pagamento_to_listaProdutos"
             app:destination="@id/listaProdutos"
@@ -54,5 +54,18 @@
         <argument
             android:name="produtoId"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/Login"
+        android:name="com.android_navigation.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/login">
+        <action
+            android:id="@+id/action_Login_to_listaProdutos"
+            app:destination="@id/listaProdutos"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>
