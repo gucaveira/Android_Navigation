@@ -1,10 +1,13 @@
 package com.android_navigation.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout.VERTICAL
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -49,6 +52,7 @@ class ListaProdutosFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideKeyboard(activity)
         estadoAppViewModel.temAppBar = true
         configuraReclyerView()
     }
@@ -64,5 +68,18 @@ class ListaProdutosFragment : BaseFragment() {
             controller.navigate(directions)
         }
         lista_produtos_recyclerview.adapter = adapter
+    }
+
+    fun hideKeyboard(activity: FragmentActivity?) {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // Check if no view has focus
+        val currentFocusedView = activity.currentFocus
+        currentFocusedView?.let {
+            inputMethodManager.hideSoftInputFromWindow(
+                currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
     }
 }
