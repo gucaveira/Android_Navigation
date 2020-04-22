@@ -10,7 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.android_navigation.R
 import com.android_navigation.ui.extensions.formatParaMoedaBrasileira
 import com.android_navigation.viewmodel.DetalhesProdutoViewModel
+import com.android_navigation.viewmodel.EstadoAppViewModel
 import kotlinx.android.synthetic.main.detalhes_produto.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -22,6 +24,7 @@ class DetalhesProdutoFragment : BaseFragment() {
     }
     private val viewModel: DetalhesProdutoViewModel by viewModel { parametersOf(produtoId) }
     private val controller by lazy { findNavController() }
+    private val estadoAppViewModel: EstadoAppViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +40,7 @@ class DetalhesProdutoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        estadoAppViewModel.temAppBar = true
         buscaProduto()
         configuraBotaoComprar()
     }

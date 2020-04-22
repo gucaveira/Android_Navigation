@@ -16,10 +16,7 @@ import com.android_navigation.ui.fragment.DetalhesProdutoFragment
 import com.android_navigation.ui.fragment.ListaProdutosFragment
 import com.android_navigation.ui.fragment.PagamentoFragment
 import com.android_navigation.ui.recyclerview.adapter.ProdutosAdapter
-import com.android_navigation.viewmodel.DetalhesProdutoViewModel
-import com.android_navigation.viewmodel.LoginViewModel
-import com.android_navigation.viewmodel.PagamentoViewModel
-import com.android_navigation.viewmodel.ProdutosViewModel
+import com.android_navigation.viewmodel.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -95,4 +92,5 @@ val viewModelModule = module {
     viewModel<DetalhesProdutoViewModel> { (id: Long) -> DetalhesProdutoViewModel(id, get()) }
     viewModel<PagamentoViewModel> { PagamentoViewModel(get(), get()) }
     viewModel<LoginViewModel> { LoginViewModel(get()) }
+    viewModel<EstadoAppViewModel> { EstadoAppViewModel() }
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,8 +12,10 @@ import com.android_navigation.R
 import com.android_navigation.model.Pagamento
 import com.android_navigation.model.Produto
 import com.android_navigation.ui.extensions.formatParaMoedaBrasileira
+import com.android_navigation.viewmodel.EstadoAppViewModel
 import com.android_navigation.viewmodel.PagamentoViewModel
 import kotlinx.android.synthetic.main.pagamento.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val FALHA_AO_CRIAR_PAGAMENTO = "Falha ao criar pagamento"
@@ -28,6 +29,7 @@ class PagamentoFragment : BaseFragment() {
         argumentos.produtoId
     }
     private val viewModel: PagamentoViewModel by viewModel()
+    private val estadoAppViewModel: EstadoAppViewModel by sharedViewModel()
     private lateinit var produtoEscolhido: Produto
     private val controller by lazy { findNavController() }
 
@@ -41,6 +43,7 @@ class PagamentoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        estadoAppViewModel.temAppBar = true
         configuraBotaoConfirmaPagamento()
         buscaProduto()
     }

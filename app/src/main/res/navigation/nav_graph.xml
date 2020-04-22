@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/Login"
-        android:name="com.android_navigation.LoginFragment"
+        android:name="com.android_navigation.ui.fragment.LoginFragment"
         android:label="Login"
         tools:layout="@layout/login">
         <action
