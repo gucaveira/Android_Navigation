@@ -55,40 +55,45 @@
             android:name="produtoId"
             app:argType="long" />
     </fragment>
-    <fragment
-        android:id="@+id/Login"
-        android:name="com.android_navigation.ui.fragment.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/login">
-        <action
-            android:id="@+id/action_Login_to_listaProdutos"
-            app:destination="@id/listaProdutos"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/Login"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_Login_to_cadastroUsuario"
-            app:destination="@id/cadastroUsuario"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
     <action
         android:id="@+id/action_global_Login"
-        app:destination="@id/Login"
+        app:destination="@id/login_graph"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@+id/listaProdutos"
         app:popUpToInclusive="true" />
-    <fragment
-        android:id="@+id/cadastroUsuario"
-        android:name="com.android_navigation.ui.fragment.CadrastroUsuario"
-        android:label="Cadastro de Usuário"
-        tools:layout="@layout/cadrastro_usuario" />
+    <navigation
+        android:id="@+id/login_graph"
+        android:label="Fluxo login"
+        app:startDestination="@id/Login">
+        <fragment
+            android:id="@+id/cadastroUsuario"
+            android:name="com.android_navigation.ui.fragment.CadrastroUsuario"
+            android:label="Cadastro de Usuário"
+            tools:layout="@layout/cadrastro_usuario" />
+        <fragment
+            android:id="@+id/Login"
+            android:name="com.android_navigation.ui.fragment.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/login">
+            <action
+                android:id="@+id/action_Login_to_listaProdutos"
+                app:destination="@+id/listaProdutos"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:popUpTo="@+id/Login"
+                app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_Login_to_cadastroUsuario"
+                app:destination="@id/cadastroUsuario"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        </fragment>
+    </navigation>
 </navigation>
