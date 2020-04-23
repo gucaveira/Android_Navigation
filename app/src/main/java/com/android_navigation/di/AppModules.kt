@@ -15,6 +15,7 @@ import com.android_navigation.repository.ProdutoRepository
 import com.android_navigation.ui.fragment.DetalhesProdutoFragment
 import com.android_navigation.ui.fragment.ListaProdutosFragment
 import com.android_navigation.ui.fragment.PagamentoFragment
+import com.android_navigation.ui.recyclerview.adapter.ListaPagamentosAdapter
 import com.android_navigation.ui.recyclerview.adapter.ProdutosAdapter
 import com.android_navigation.viewmodel.*
 import kotlinx.coroutines.CoroutineScope
@@ -85,6 +86,7 @@ val uiModule = module {
     factory<ListaProdutosFragment> { ListaProdutosFragment() }
     factory<PagamentoFragment> { PagamentoFragment() }
     factory<ProdutosAdapter> { ProdutosAdapter(get()) }
+    factory<ListaPagamentosAdapter> { ListaPagamentosAdapter(get()) }
 }
 
 val viewModelModule = module {

@@ -22,4 +22,6 @@ class PagamentoRepository(private val dao: PagamentoDAO) {
             }
         }
     }
+
+    fun todos(): LiveData<List<Pagamento>> = dao.todo()
 }

@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.android_navigation.R
 import com.android_navigation.viewmodel.EstadoAppViewModel
+import kotlinx.android.synthetic.main.main_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -33,5 +35,6 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
+        main_activity_bottom_navigation.setupWithNavController(controller)
     }
 }

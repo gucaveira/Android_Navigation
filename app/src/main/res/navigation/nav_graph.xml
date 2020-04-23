@@ -96,4 +96,9 @@
                 app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/listaPagamentos"
+        android:name="com.android_navigation.ui.fragment.ListaPagamentosFragment"
+        android:label="Lista de pagamentos"
+        tools:layout="@layout/lista_pagamentos" />
 </navigation>
