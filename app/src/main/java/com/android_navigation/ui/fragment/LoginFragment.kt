@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android_navigation.R
+import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.EstadoAppViewModel
 import com.android_navigation.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.login.*
@@ -33,7 +34,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        estadoAppViewModel.temAppBar = false
+        estadoAppViewModel.temComponentes = ComponentesVisuais()
         login_botao_logar.setOnClickListener {
             viewModel.loga()
             vaiParaListaProdutos()

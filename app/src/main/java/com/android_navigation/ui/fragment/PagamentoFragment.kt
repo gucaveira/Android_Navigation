@@ -12,6 +12,7 @@ import com.android_navigation.R
 import com.android_navigation.model.Pagamento
 import com.android_navigation.model.Produto
 import com.android_navigation.ui.extensions.formatParaMoedaBrasileira
+import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.EstadoAppViewModel
 import com.android_navigation.viewmodel.PagamentoViewModel
 import kotlinx.android.synthetic.main.pagamento.*
@@ -43,7 +44,7 @@ class PagamentoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        estadoAppViewModel.temAppBar = true
+        estadoAppViewModel.temComponentes = ComponentesVisuais(appBar = true)
         configuraBotaoConfirmaPagamento()
         buscaProduto()
     }

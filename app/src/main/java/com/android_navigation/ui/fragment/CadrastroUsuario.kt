@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android_navigation.R
+import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.EstadoAppViewModel
 import kotlinx.android.synthetic.main.cadrastro_usuario.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -29,7 +30,7 @@ class CadrastroUsuario : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        estadoAppViewModel.temAppBar = false
+        estadoAppViewModel.temComponentes = ComponentesVisuais()
         cadastro_usuario_botao_cadastrar.setOnClickListener {
             controller.popBackStack()
         }

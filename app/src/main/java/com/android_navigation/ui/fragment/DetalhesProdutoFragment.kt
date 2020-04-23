@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android_navigation.R
 import com.android_navigation.ui.extensions.formatParaMoedaBrasileira
+import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.DetalhesProdutoViewModel
 import com.android_navigation.viewmodel.EstadoAppViewModel
 import kotlinx.android.synthetic.main.detalhes_produto.*
@@ -40,7 +41,7 @@ class DetalhesProdutoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        estadoAppViewModel.temAppBar = true
+        estadoAppViewModel.temComponentes = ComponentesVisuais(appBar = true)
         buscaProduto()
         configuraBotaoComprar()
     }

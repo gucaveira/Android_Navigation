@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.android_navigation.R
 import com.android_navigation.ui.recyclerview.adapter.ProdutosAdapter
+import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.EstadoAppViewModel
 import com.android_navigation.viewmodel.ProdutosViewModel
 import kotlinx.android.synthetic.main.lista_produtos.*
@@ -53,7 +54,10 @@ class ListaProdutosFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideKeyboard(activity)
-        estadoAppViewModel.temAppBar = true
+        estadoAppViewModel.temComponentes = ComponentesVisuais(
+            appBar = true,
+            bottomNavigation = true
+        )
         configuraReclyerView()
     }
 
