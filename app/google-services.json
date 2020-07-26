@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "108377436621",
+    "firebase_url": "https://loja-esporte-curso-navigation.firebaseio.com",
+    "project_id": "loja-esporte-curso-navigation",
+    "storage_bucket": "loja-esporte-curso-navigation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108377436621:android:561eac9267c9826e9c1484",
+        "android_client_info": {
+          "package_name": "com.android_navigation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108377436621-op8jqcbrj75s39ug7qlpl90thp78j0ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiNTmdNOXZIRK4Y5cB9D-ftju4fI-aAF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108377436621-op8jqcbrj75s39ug7qlpl90thp78j0ot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
