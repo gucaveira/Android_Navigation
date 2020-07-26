@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        controller.addOnDestinationChangedListener { controller, destination, arguments ->
+        controller.addOnDestinationChangedListener { _, destination, _ ->
             title = destination.label
 
             viewModel.componentes.observe(this, Observer {
