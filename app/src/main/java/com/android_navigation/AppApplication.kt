@@ -1,10 +1,7 @@
 package com.android_navigation
 
 import android.app.Application
-import com.android_navigation.di.daoModule
-import com.android_navigation.di.testeDatabaseModule
-import com.android_navigation.di.uiModule
-import com.android_navigation.di.viewModelModule
+import com.android_navigation.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -19,7 +16,8 @@ class AppApplication : Application() {
                     testeDatabaseModule,
                     daoModule,
                     uiModule,
-                    viewModelModule
+                    viewModelModule,
+                    firebaseModule
                 )
             )
         }

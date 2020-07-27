@@ -7,18 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android_navigation.R
+import com.android_navigation.viewmodel.CadastroUsuarioViewModel
 import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.EstadoAppViewModel
 import kotlinx.android.synthetic.main.cadrastro_usuario.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class CadrastroUsuario : Fragment() {
+class CadrastroUsuarioFragment : Fragment() {
 
     private val controller by lazy {
         findNavController()
     }
 
     private val estadoAppViewModel: EstadoAppViewModel by sharedViewModel()
+    private val viewModel: CadastroUsuarioViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +35,10 @@ class CadrastroUsuario : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         estadoAppViewModel.temComponentes = ComponentesVisuais()
         cadastro_usuario_botao_cadastrar.setOnClickListener {
-            controller.popBackStack()
+            val email = cadastro_usuario_email.editText?.text.toString()
+            val senha = cadastro_usuario_senha.editText?.text.toString()
+            viewModel.cadrastra(email, senha)
+            // controller.popBackStack()
         }
     }
 }

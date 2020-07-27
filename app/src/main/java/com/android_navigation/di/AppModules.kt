@@ -9,6 +9,7 @@ import com.android_navigation.database.AppDatabase
 import com.android_navigation.database.dao.PagamentoDAO
 import com.android_navigation.database.dao.ProdutoDAO
 import com.android_navigation.model.Produto
+import com.android_navigation.repository.FirebaseAuthRepository
 import com.android_navigation.repository.LoginRepository
 import com.android_navigation.repository.PagamentoRepository
 import com.android_navigation.repository.ProdutoRepository
@@ -18,6 +19,9 @@ import com.android_navigation.ui.fragment.PagamentoFragment
 import com.android_navigation.ui.recyclerview.adapter.ListaPagamentosAdapter
 import com.android_navigation.ui.recyclerview.adapter.ProdutosAdapter
 import com.android_navigation.viewmodel.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -79,6 +83,7 @@ val daoModule = module {
     single<PagamentoRepository> { PagamentoRepository(get()) }
     single<LoginRepository> { LoginRepository(get()) }
     single<SharedPreferences> { PreferenceManager.getDefaultSharedPreferences(get()) }
+    single<FirebaseAuthRepository> { FirebaseAuthRepository(get()) }
 }
 
 val uiModule = module {
@@ -95,4 +100,9 @@ val viewModelModule = module {
     viewModel<PagamentoViewModel> { PagamentoViewModel(get(), get()) }
     viewModel<LoginViewModel> { LoginViewModel(get()) }
     viewModel<EstadoAppViewModel> { EstadoAppViewModel() }
+    viewModel<CadastroUsuarioViewModel> { CadastroUsuarioViewModel(get()) }
+}
+
+val firebaseModule = module {
+    single<FirebaseAuth> { Firebase.auth }
 }

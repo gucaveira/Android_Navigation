@@ -70,7 +70,7 @@
         app:startDestination="@id/Login">
         <fragment
             android:id="@+id/cadastroUsuario"
-            android:name="com.android_navigation.ui.fragment.CadrastroUsuario"
+            android:name="com.android_navigation.ui.fragment.CadrastroUsuarioFragment"
             android:label="Cadastro de Usuário"
             tools:layout="@layout/cadrastro_usuario" />
         <fragment
