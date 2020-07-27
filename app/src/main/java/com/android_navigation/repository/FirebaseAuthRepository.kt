@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 
 private const val TAG = "FirebaseAuthRepository"
 
@@ -30,14 +33,24 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
-    fun cadastra(email: String, senha: String): LiveData<Boolean> {
-        val liveData = MutableLiveData<Boolean>()
-        firebaseAuth.createUserWithEmailAndPassword(email, senha).addOnSuccessListener {
-            Log.i(TAG, "cadastra: cadastro sucedido")
-            liveData.value = true
-        }.addOnFailureListener {
-            Log.e(TAG, "cadastra: cadastro falhou", it)
-            liveData.value = false
+    fun cadastra(email: String, senha: String): LiveData<Resource<Boolean>> {
+        val liveData = MutableLiveData<Resource<Boolean>>()
+        try {
+            firebaseAuth.createUserWithEmailAndPassword(email, senha).addOnSuccessListener {
+                Log.i(TAG, "cadastra: cadastro sucedido")
+                liveData.value = Resource(true)
+            }.addOnFailureListener { exception ->
+                Log.e(TAG, "cadastra: cadastro falhou", exception)
+                val mensagemError: String = when (exception) {
+                    is FirebaseAuthWeakPasswordException -> "Senha precisa de pelo menos 6 digitos"
+                    is FirebaseAuthInvalidCredentialsException -> "E-mail inválido"
+                    is FirebaseAuthUserCollisionException -> "E-mail já cadastrado"
+                    else -> "Erro Desconhecido"
+                }
+                liveData.value = Resource(false, mensagemError)
+            }
+        } catch (e: IllegalArgumentException) {
+            liveData.value = Resource(false, "E-mail ou senha não podem ser vazio")
         }
         return liveData
     }

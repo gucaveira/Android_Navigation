@@ -37,20 +37,47 @@ class CadrastroUsuarioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         estadoAppViewModel.temComponentes = ComponentesVisuais()
         cadastro_usuario_botao_cadastrar.setOnClickListener {
+
+            cadastro_usuario_email.error = null
+            cadastro_usuario_senha.error = null
+            cadastro_usuario_confirma_senha.error = null
+
             val email = cadastro_usuario_email.editText?.text.toString()
             val senha = cadastro_usuario_senha.editText?.text.toString()
-            viewModel.cadrastra(email, senha).observe(viewLifecycleOwner, Observer {
-                it?.let { cadastrado ->
-                    if (cadastrado) {
-                        Snackbar.make(view, "Usuario cadastrado", Snackbar.LENGTH_LONG).show()
-                        controller.popBackStack()
-                    } else {
-                        Snackbar.make(view, "Erro ao cadastrar usuario", Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-                }
-            })
+            val confimarSenha = cadastro_usuario_confirma_senha.editText?.text.toString()
 
+            var valido = true
+
+            if (email.isBlank()) {
+                cadastro_usuario_email.error = "E-mail necessário"
+                valido = false
+            }
+
+            if (senha.isBlank()) {
+                cadastro_usuario_senha.error = "Senha necessária"
+                valido = false
+            }
+
+            if (confimarSenha != senha) {
+                cadastro_usuario_confirma_senha.error = "Senhas diferentes"
+                valido = false
+            }
+
+
+            if (valido) {
+                viewModel.cadrastra(email, senha).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        if (resource.dado) {
+                            Snackbar.make(view, "Usuario cadastrado", Snackbar.LENGTH_LONG).show()
+                            controller.popBackStack()
+                        } else {
+                            val mensagemError = resource.error ?: "Falha no cadastro"
+                            Snackbar.make(view, mensagemError, Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                    }
+                })
+            }
         }
     }
 }
