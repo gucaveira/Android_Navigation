@@ -8,10 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android_navigation.R
+import com.android_navigation.model.Usuario
+import com.android_navigation.ui.extensions.snackbar
 import com.android_navigation.viewmodel.CadastroUsuarioViewModel
 import com.android_navigation.viewmodel.ComponentesVisuais
 import com.android_navigation.viewmodel.EstadoAppViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.cadrastro_usuario.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -36,48 +37,68 @@ class CadrastroUsuarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         estadoAppViewModel.temComponentes = ComponentesVisuais()
+        configuraBotaoCadastros()
+    }
+
+    private fun configuraBotaoCadastros() {
         cadastro_usuario_botao_cadastrar.setOnClickListener {
 
-            cadastro_usuario_email.error = null
-            cadastro_usuario_senha.error = null
-            cadastro_usuario_confirma_senha.error = null
+            limpartodosCamposErros()
 
             val email = cadastro_usuario_email.editText?.text.toString()
             val senha = cadastro_usuario_senha.editText?.text.toString()
             val confimarSenha = cadastro_usuario_confirma_senha.editText?.text.toString()
 
-            var valido = true
-
-            if (email.isBlank()) {
-                cadastro_usuario_email.error = "E-mail necessário"
-                valido = false
-            }
-
-            if (senha.isBlank()) {
-                cadastro_usuario_senha.error = "Senha necessária"
-                valido = false
-            }
-
-            if (confimarSenha != senha) {
-                cadastro_usuario_confirma_senha.error = "Senhas diferentes"
-                valido = false
-            }
-
-
+            val valido = validandoCampos(email, senha, confimarSenha)
             if (valido) {
-                viewModel.cadrastra(email, senha).observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        if (resource.dado) {
-                            Snackbar.make(view, "Usuario cadastrado", Snackbar.LENGTH_LONG).show()
-                            controller.popBackStack()
-                        } else {
-                            val mensagemError = resource.error ?: "Falha no cadastro"
-                            Snackbar.make(view, mensagemError, Snackbar.LENGTH_LONG)
-                                .show()
-                        }
-                    }
-                })
+                cadastra(Usuario(email, senha))
             }
         }
+    }
+
+    private fun cadastra(usuario: Usuario) {
+        viewModel.cadrastra(usuario).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                view?.let { view ->
+                    if (resource.dado) {
+                        view.snackbar("Cadastro realizado com sucesso")
+                        controller.popBackStack()
+                    } else {
+                        val mensagemError = resource.error ?: "Falha no cadastro"
+                        view.snackbar(mensagemError)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun validandoCampos(
+        email: String,
+        senha: String,
+        confimarSenha: String
+    ): Boolean {
+        var valido = true
+
+        if (email.isBlank()) {
+            cadastro_usuario_email.error = "E-mail necessário"
+            valido = false
+        }
+
+        if (senha.isBlank()) {
+            cadastro_usuario_senha.error = "Senha necessária"
+            valido = false
+        }
+
+        if (confimarSenha != senha) {
+            cadastro_usuario_confirma_senha.error = "Senhas diferentes"
+            valido = false
+        }
+        return valido
+    }
+
+    private fun limpartodosCamposErros() {
+        cadastro_usuario_email.error = null
+        cadastro_usuario_senha.error = null
+        cadastro_usuario_confirma_senha.error = null
     }
 }
