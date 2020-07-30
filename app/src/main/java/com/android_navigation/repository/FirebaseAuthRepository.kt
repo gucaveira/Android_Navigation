@@ -75,4 +75,14 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
             else -> "Erro desconhecido"
         }
     }
+
+    fun getUsuario(): LiveData<Usuario> {
+        val liveData = MutableLiveData<Usuario>()
+        firebaseAuth.currentUser?.let { firebaseUser ->
+            firebaseUser.email?.let { email ->
+                liveData.value = Usuario(email)
+            }
+        }
+        return liveData
+    }
 }

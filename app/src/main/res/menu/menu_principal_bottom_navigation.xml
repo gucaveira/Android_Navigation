@@ -3,9 +3,13 @@
     <item
         android:id="@+id/listaProdutos"
         android:icon="@drawable/ic_action_produtos_24dp"
-        android:title="Produtos" />
+        android:title="@string/produtos" />
     <item
         android:id="@+id/listaPagamentos"
         android:icon="@drawable/ic_action_pagamentos_24dp"
-        android:title="Pagamentos" />
+        android:title="@string/pagamentos" />
+    <item
+        android:id="@+id/minhaConta"
+        android:icon="@drawable/ic_action_minha_conta"
+        android:title="@string/minha_conta" />
 </menu>
