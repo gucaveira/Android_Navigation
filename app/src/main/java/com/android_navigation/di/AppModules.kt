@@ -10,7 +10,6 @@ import com.android_navigation.database.dao.PagamentoDAO
 import com.android_navigation.database.dao.ProdutoDAO
 import com.android_navigation.model.Produto
 import com.android_navigation.repository.FirebaseAuthRepository
-import com.android_navigation.repository.LoginRepository
 import com.android_navigation.repository.PagamentoRepository
 import com.android_navigation.repository.ProdutoRepository
 import com.android_navigation.ui.fragment.DetalhesProdutoFragment
@@ -81,7 +80,6 @@ val daoModule = module {
     single<PagamentoDAO> { get<AppDatabase>().pagamentoDao() }
     single<ProdutoRepository> { ProdutoRepository(get()) }
     single<PagamentoRepository> { PagamentoRepository(get()) }
-    single<LoginRepository> { LoginRepository(get()) }
     single<SharedPreferences> { PreferenceManager.getDefaultSharedPreferences(get()) }
     single<FirebaseAuthRepository> { FirebaseAuthRepository(get()) }
 }
